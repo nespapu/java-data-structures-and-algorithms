@@ -1,38 +1,65 @@
 # Java Data Structures and Algorithms
 
-This repository contains implementations of classic **sorting algorithms** and **fundamental data structures** developed as part of my preparation for competitive IT exams.
+This repository contains clean and educational implementations of classic **sorting algorithms** and fundamental **data structures**, written in Java as part of my preparation for competitive IT exams and as a technical complement to my project **OOPPS**.
 
-Some class and method names are currently in Spanish (originating from the exam context), but the code is clear and self-explanatory. Future refactors will gradually rename everything to standard English terminology.
+All classes and method names now follow standard English terminology after a full refactor aimed at consistency and clarity.
 
 ---
 
 ## 🔃 Sorting Algorithms
 
-- Bubble sort (Burbuja)
-- MergeSort
-- QuickSort
+All sorting implementations include ascending and descending variants, plus small demo `main` methods.
+
+- **BubbleSort**
+- **MergeSort**
+- **QuickSort** (Lomuto partition scheme)
 
 ---
 
 ## 📦 Data Structures
 
-- Stack (Pila)
-- Queue (Cola)
-- Singly Linked List (Lista Enlazada)
-- Doubly Linked List (Lista Doblemente Enlazada)
+Generic, ready-to-use data structures implemented from scratch:
+
+- **Stack** (LIFO)
+- **Queue** (FIFO)
+- **SinglyLinkedList**
+- **DoublyLinkedList**
+
+Each structure includes:
+- basic operations (push/pop, enqueue/dequeue, etc.)
+- size and state checks
+- console-based demo methods
 
 ---
 
 ## 🧰 Tech Stack
 
-- Java 17+
-- Standard library only
-- Console-based examples
+- **Java 17+**
+- No external dependencies
+- Pure Java and standard library only
 
 ---
 
 ## 🎯 Purpose
 
-- Practice and consolidate data structures and algorithms in Java  
-- Serve as a technical complement to my main project (OOPPS)  
-- Demonstrate clean and readable Java code
+- Strengthen understanding of classical data structures and algorithms  
+- Maintain a clean and readable educational codebase  
+- Support my exam preparation and reinforce Java fundamentals  
+- Serve as a simple, transparent reference for algorithmic concepts
+
+---
+
+## 📌 Next Steps
+
+Planned improvements include:
+
+- Moving demo `main` methods into dedicated `*Demo` classes  
+- Reorganizing project structure to match package naming  
+- Adding unit tests (JUnit)  
+- Expanding the repository with more algorithms and structures  
+
+---
+
+## 📄 License
+
+MIT
