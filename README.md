@@ -135,6 +135,8 @@ Planned improvements include:
 
 ## 📄 License
 
-MIT
+This project is open-source and distributed under the MIT License.  
+Copyright © 2025–present Néstor Pavón Puro.  
+For more information, see the [LICENSE](./LICENSE) file.
 
 ---
