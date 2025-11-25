@@ -88,23 +88,4 @@ public class Stack<T> {
             current = current.next;
         }
     }
-
-    public static void main(String[] args) {
-        Stack<Integer> stack = new Stack<>();
-        assert stack.isEmpty();
-
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        assert stack.size() == 3;
-
-        stack.printStack();
-
-        stack.pop();
-        stack.printStack();
-        assert stack.size() == 2;
-
-        assert stack.peek().equals(2);
-        assert stack.size() == 2;
-    }
 }

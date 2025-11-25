@@ -94,11 +94,4 @@ public class SinglyLinkedList<T> {
         }
         System.out.println(current.value);
     }
-
-    public static void main(String[] args) {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
-        list.addFirst(1);
-        list.addLast(2);
-        list.printElements();
-    }
 }

@@ -14,19 +14,6 @@ public final class BubbleSort {
         // Utility class: prevent instantiation
     }
 
-    public static void main(String[] args) {
-        int[] array = {7, 2, 9, 1, 6, 3, 10, 4, 8, 5};
-
-        // Print unsorted array
-        System.out.println("Unsorted: " + Arrays.toString(array));
-
-        sortDescending(array);
-        // sortAscending(array);
-
-        // Print sorted array
-        System.out.println("Sorted:   " + Arrays.toString(array));
-    }
-
     /**
      * Sorts the given array in descending order using the Bubble Sort algorithm.
      *
