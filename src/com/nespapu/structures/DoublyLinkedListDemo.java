@@ -24,5 +24,15 @@ public class DoublyLinkedListDemo {
         list.removeSecond();
         list.removeLast();
         System.out.println("Final size: " + list.size());
+
+        list.addLast(20);
+        list.addLast(30);
+        list.addLast(40);
+        
+        System.out.print("Forward : ");
+        list.printList();
+
+        System.out.print("Backward: ");
+        list.printListReverse();
     }
 }

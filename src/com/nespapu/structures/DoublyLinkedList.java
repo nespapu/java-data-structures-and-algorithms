@@ -228,4 +228,48 @@ public class DoublyLinkedList<T extends Comparable<T>> {
         }
         return last;
     }
+
+    public void printList() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+
+        Node<T> current = head;
+        while (current != null) {
+            sb.append(current.value);
+            if (current.next != null) {
+                sb.append(", ");
+            }
+            current = current.next;
+        }
+
+        sb.append("]");
+        System.out.println(sb);
+    }
+
+    public void printListReverse() {
+        if (head == null) {
+            System.out.println("[]");
+            return;
+        }
+
+        Node<T> current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+
+        while (current != null) {
+            sb.append(current.value);
+            if (current.previous != null) {
+                sb.append(", ");
+            }
+            current = current.previous;
+        }
+
+        sb.append("]");
+        System.out.println(sb);
+    }
+
 }
