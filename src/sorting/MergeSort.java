@@ -1,124 +1,149 @@
-package AlgoritmosDeBusqueda;
+package com.nespapu.sorting;
 
-public class MergeSort {
-    public static void main (String[] args) {
-        int[] conjunto = {7, 2, 9, 1, 6, 3, 10, 4, 8, 5};
+import java.util.Arrays;
 
-        // Imprimir conjunto desordenado
-        for  (int i=0; i<conjunto.length - 1; i++) {
-            System.out.print(conjunto[i] + ", ");
-        }
-        System.out.println(conjunto[conjunto.length-1]);
+/**
+ * Merge Sort implementation for integer arrays.
+ *
+ * Time complexity: O(n log n)
+ * Space complexity: O(n)
+ */
+public final class MergeSort {
 
-        ordenarMayorMenor(conjunto, 0, conjunto.length -1);
-        //ordenarMenorMayor(conjunto, 0, conjunto.length - 1);
-
-        // Imprimir conjunto ordenado
-        for  (int i=0; i<conjunto.length - 1; i++) {
-            System.out.print(conjunto[i] + ", ");
-        }
-        System.out.println(conjunto[conjunto.length-1]);
+    private MergeSort() {
+        // Utility class
     }
 
-    public static void ordenarMenorMayor (int[] conjunto, int inicio, int fin) {
-        if (inicio >= fin) { //Caso base: dimensión del arreglo es 1
+    public static void main(String[] args) {
+        int[] array = {7, 2, 9, 1, 6, 3, 10, 4, 8, 5};
+
+        // Print unsorted array
+        System.out.println("Unsorted: " + Arrays.toString(array));
+
+        sortDescending(array);
+        // sortAscending(array);
+
+        // Print sorted array
+        System.out.println("Sorted:   " + Arrays.toString(array));
+    }
+
+    /**
+     * Sorts the given array in ascending order using the Merge Sort algorithm.
+     *
+     * @param array the array to be sorted; if null or length < 2, the method does nothing
+     */
+    public static void sortAscending(int[] array) {
+        if (array == null || array.length < 2) {
             return;
         }
-        int mitad = (fin - inicio) / 2;
-        ordenarMenorMayor(conjunto, inicio, inicio + mitad);
-        ordenarMenorMayor(conjunto, inicio + mitad + 1, fin);
-        combinar(conjunto, inicio, mitad, fin);
+        sortAscending(array, 0, array.length - 1);
     }
 
-    private static void combinar (int[] conjunto, int inicio, int mitad, int fin) {
-        int dimension = fin - inicio + 1;
-        int[] izquierda = (dimension % 2 == 0) ? new int[dimension / 2] : new int[(dimension / 2) + 1];
-        int[] derecha = new int[dimension / 2];
-
-        for(int i=0; i<izquierda.length; i++) {
-            izquierda[i] = conjunto[inicio + i];
-        }
-
-        for(int i=0; i<derecha.length; i++) {
-            derecha[i] = conjunto[inicio + mitad + i + 1];
-        }
-
-        int i=0;
-        int j=0;
-        int k=inicio;
-
-        while (i<izquierda.length && j<derecha.length) {
-            if (izquierda[i] <= derecha[j]) {
-                conjunto[k] = izquierda[i];
-                i++;
-            }else {
-                conjunto[k] = derecha[j];
-                j++;
-            }
-            k++;
-        }
-
-        while (i<izquierda.length) {
-            conjunto[k] = izquierda[i];
-            k++;
-            i++; 
-        }
-
-        while (j<derecha.length) {
-            conjunto[k] = derecha[j];
-            k++;
-            j++;
-        }
-    }
-
-    public static void ordenarMayorMenor (int[] conjunto, int inicio, int fin) {
-        if (inicio >= fin) { //Caso base: dimensión del arreglo es 1
+    private static void sortAscending(int[] array, int left, int right) {
+        if (left >= right) {
             return;
         }
-        int mitad = (fin - inicio) / 2;
-        ordenarMayorMenor(conjunto, inicio, inicio + mitad);
-        ordenarMayorMenor(conjunto, inicio + mitad + 1, fin);
-        combinarMayorMenor(conjunto, inicio, mitad, fin);
+
+        int middle = (left + right) / 2;
+
+        sortAscending(array, left, middle);
+        sortAscending(array, middle + 1, right);
+        mergeAscending(array, left, middle, right);
     }
 
-    private static void combinarMayorMenor (int[] conjunto, int inicio, int mitad, int fin) {
-        int dimension = fin - inicio + 1;
-        int[] izquierda = (dimension % 2 == 0) ? new int[dimension / 2] : new int[(dimension / 2) + 1];
-        int[] derecha = new int[dimension / 2];
+    private static void mergeAscending(int[] array, int left, int middle, int right) {
+        int n1 = middle - left + 1;
+        int n2 = right - middle;
 
-        for(int i=0; i<izquierda.length; i++) {
-            izquierda[i] = conjunto[inicio + i];
+        int[] leftArray = new int[n1];
+        int[] rightArray = new int[n2];
+
+        for (int i = 0; i < n1; i++) {
+            leftArray[i] = array[left + i];
         }
 
-        for(int i=0; i<derecha.length; i++) {
-            derecha[i] = conjunto[inicio + mitad + i + 1];
+        for (int i = 0; i < n2; i++) {
+            rightArray[i] = array[middle + 1 + i];
         }
 
-        int i=0;
-        int j=0;
-        int k=inicio;
+        int i = 0;
+        int j = 0;
+        int k = left;
 
-        while (i<izquierda.length && j<derecha.length) {
-            if (izquierda[i] >= derecha[j]) {
-                conjunto[k] = izquierda[i];
-                i++;
-            }else {
-                conjunto[k] = derecha[j];
-                j++;
+        while (i < n1 && j < n2) {
+            if (leftArray[i] <= rightArray[j]) {
+                array[k++] = leftArray[i++];
+            } else {
+                array[k++] = rightArray[j++];
             }
-            k++;
         }
 
-        while (i<izquierda.length) {
-            conjunto[k] = izquierda[i];
-            k++;
-            i++; 
+        while (i < n1) {
+            array[k++] = leftArray[i++];
         }
 
-        while (j<derecha.length) {
-            conjunto[k] = derecha[j];
-            k++;
-            j++;
+        while (j < n2) {
+            array[k++] = rightArray[j++];
+        }
+    }
+
+    /**
+     * Sorts the given array in descending order using the Merge Sort algorithm.
+     *
+     * @param array the array to be sorted; if null or length < 2, the method does nothing
+     */
+    public static void sortDescending(int[] array) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+        sortDescending(array, 0, array.length - 1);
+    }
+
+    private static void sortDescending(int[] array, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+
+        int middle = (left + right) / 2;
+
+        sortDescending(array, left, middle);
+        sortDescending(array, middle + 1, right);
+        mergeDescending(array, left, middle, right);
+    }
+
+    private static void mergeDescending(int[] array, int left, int middle, int right) {
+        int n1 = middle - left + 1;
+        int n2 = right - middle;
+
+        int[] leftArray = new int[n1];
+        int[] rightArray = new int[n2];
+
+        for (int i = 0; i < n1; i++) {
+            leftArray[i] = array[left + i];
+        }
+
+        for (int i = 0; i < n2; i++) {
+            rightArray[i] = array[middle + 1 + i];
+        }
+
+        int i = 0;
+        int j = 0;
+        int k = left;
+
+        while (i < n1 && j < n2) {
+            if (leftArray[i] >= rightArray[j]) {
+                array[k++] = leftArray[i++];
+            } else {
+                array[k++] = rightArray[j++];
+            }
+        }
+
+        while (i < n1) {
+            array[k++] = leftArray[i++];
+        }
+
+        while (j < n2) {
+            array[k++] = rightArray[j++];
         }
     }
 }

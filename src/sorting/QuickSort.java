@@ -1,102 +1,117 @@
-package AlgoritmosDeBusqueda;
+package com.nespapu.sorting;
+
+import java.util.Arrays;
+
 /**
- * El método QuickSort utiliza la estrategia de divide y vencerás.
- * El algoritmo contiene los siguientes pasos:
- * 1. Divide: partir el conjunto en dos: 1er elemento a pivote - 1 y pivote + 1 a último elemento.
- * 2. Resolver: ordenar los elementos conforme al pivote.
- * 3. Combinar: este método no tiene necesidad de combinar las soluciones porque las divisiones ya están ordenadas.
- * 
- * El pivote es la posición elegida cuyo elemento se utiliza para ordenar elementos a izquierda y derecha.
- * 
- * El algoritmo es recursivo: su caso base es cuando la dimensión del array a ordenar es 1.
+ * Quick Sort implementation for integer arrays (Lomuto partition scheme).
+ *
+ * Average time complexity: O(n log n)
+ * Worst-case time complexity: O(n^2)
+ * Space complexity: O(log n) due to recursion
  */
-public class QuickSort {
-    public static void main (String[] args) {
-        int[] conjunto = {7, 2, 9, 1, 6, 3, 10, 4, 8, 5};
+public final class QuickSort {
 
-        // Imprimir conjunto desordenado
-        for  (int i=0; i<conjunto.length - 1; i++) {
-            System.out.print(conjunto[i] + ", ");
-        }
-        System.out.println(conjunto[conjunto.length-1]);
-
-        ordenarMayorMenor(conjunto, 0, conjunto.length -1);
-        //ordenarMenorMayor(conjunto, 0, conjunto.length - 1);
-
-        // Imprimir conjunto ordenado
-        for  (int i=0; i<conjunto.length - 1; i++) {
-            System.out.print(conjunto[i] + ", ");
-        }
-        System.out.println(conjunto[conjunto.length-1]);
+    private QuickSort() {
+        // Utility class
     }
 
-    public static void ordenarMenorMayor (int[] conjunto, int inicio, int fin) {
-        if ( inicio >= fin) {// Si la dimensión del conjunto es uno
+    public static void main(String[] args) {
+        int[] array = {7, 2, 9, 1, 6, 3, 10, 4, 8, 5};
+
+        // Print unsorted array
+        System.out.println("Unsorted: " + Arrays.toString(array));
+
+        // sortDescending(array);
+        sortAscending(array);
+
+        // Print sorted array
+        System.out.println("Sorted:   " + Arrays.toString(array));
+    }
+
+    /**
+     * Sorts the given array in ascending order using the Quick Sort algorithm.
+     *
+     * @param array the array to be sorted; if null or length < 2, the method does nothing
+     */
+    public static void sortAscending(int[] array) {
+        if (array == null || array.length < 2) {
             return;
         }
-        int pivote = resolverMenorMayor(conjunto, inicio, fin);
-        ordenarMenorMayor(conjunto, inicio, pivote - 1);
-        ordenarMenorMayor(conjunto, pivote + 1, fin);
+        sortAscending(array, 0, array.length - 1);
     }
 
-    /*
-     * Devuelve la posición del pivote y ordena los elementos del conjunto respecto al pivote
-     */
-    private static int resolverMenorMayor(int[] conjunto, int inicio, int fin) {
-        // La elección del pivote afecta al tiempo de ejecución del problema y
-        // no existe una solución perfecta, depende de los valores del conjunto.
-        int pivote = conjunto[fin];
-        int ultima = inicio - 1;
-        int temp;
-        for (int k=inicio; k<fin; k++){
-            if (conjunto[k] < pivote) {
-                ultima++;
-                temp = conjunto[k];
-                conjunto[k] = conjunto[ultima];
-                conjunto[ultima] = temp;
-            }
-        }
-        //Colocamos el pivote en su posición
-        ultima++;
-        temp = conjunto[ultima];
-        conjunto[ultima] = pivote;
-        conjunto[fin] = temp;
-        return ultima; 
-    }
-
-    public static void ordenarMayorMenor (int[] conjunto, int inicio, int fin) {
-        // Si la dimensión del conjunto es uno
-        if ( inicio >= fin) {
+    private static void sortAscending(int[] array, int left, int right) {
+        if (left >= right) {
             return;
         }
-        int pivote = resolverMayorMenor(conjunto, inicio, fin);
-        ordenarMayorMenor(conjunto, inicio, pivote - 1);
-        ordenarMayorMenor(conjunto, pivote + 1, fin);
+
+        int pivotIndex = partitionAscending(array, left, right);
+        sortAscending(array, left, pivotIndex - 1);
+        sortAscending(array, pivotIndex + 1, right);
     }
 
-    /*
-     * Devuelve la posición del pivote y ordena los elementos del conjunto respecto al pivote
-     */
-    private static int resolverMayorMenor(int[] conjunto, int inicio, int fin) {
-        // La elección del pivote afecta al tiempo de ejecución del problema y
-        // no existe una solución perfecta, depende de los valores del conjunto.
-        int pivote = conjunto[fin];
-        int ultima = inicio - 1;
-        int temp;
-        for (int k=inicio; k<fin; k++){
-            if (conjunto[k] > pivote) {
-                ultima++;
-                temp = conjunto[k];
-                conjunto[k] = conjunto[ultima];
-                conjunto[ultima] = temp;
+    private static int partitionAscending(int[] array, int left, int right) {
+        // The pivot selection affects the execution time.
+        // This implementation uses the last element as pivot (Lomuto partition scheme).
+        int pivot = array[right];
+        int last = left - 1;
+
+        for (int k = left; k < right; k++) {
+            if (array[k] < pivot) {
+                last++;
+                swap(array, last, k);
             }
         }
-        //Colocamos el pivote en su posición
-        ultima++;
-        temp = conjunto[ultima];
-        conjunto[ultima] = pivote;
-        conjunto[fin] = temp;
-        return ultima; 
+
+        last++;
+        swap(array, last, right);
+        return last;
     }
-    
+
+    /**
+     * Sorts the given array in descending order using the Quick Sort algorithm.
+     *
+     * @param array the array to be sorted; if null or length < 2, the method does nothing
+     */
+    public static void sortDescending(int[] array) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+        sortDescending(array, 0, array.length - 1);
+    }
+
+    private static void sortDescending(int[] array, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+
+        int pivotIndex = partitionDescending(array, left, right);
+        sortDescending(array, left, pivotIndex - 1);
+        sortDescending(array, pivotIndex + 1, right);
+    }
+
+    private static int partitionDescending(int[] array, int left, int right) {
+        int pivot = array[right];
+        int last = left - 1;
+
+        for (int k = left; k < right; k++) {
+            if (array[k] > pivot) {
+                last++;
+                swap(array, last, k);
+            }
+        }
+
+        last++;
+        swap(array, last, right);
+        return last;
+    }
+
+    private static void swap(int[] array, int i, int j) {
+        if (i == j) {
+            return;
+        }
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
