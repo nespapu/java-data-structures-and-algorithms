@@ -1,4 +1,4 @@
-package structures;
+package com.nespapu.structures;
 
 /**
  * Simple singly linked list implementation.
